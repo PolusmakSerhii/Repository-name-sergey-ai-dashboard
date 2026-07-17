@@ -257,7 +257,7 @@
         Opportunity Score: — | Grade: — | Direction: —
       </p>
     </section>    
-  </main>  
+   
       <section class="card" style="margin-top: 18px;">
       <p class="card-label">
         Market Summary
@@ -275,6 +275,7 @@
         Confidence: — | Ready Trades: —
       </p>
     </section>  
+    </main> 
   
   <script>
     const API_URL =
@@ -318,7 +319,23 @@ document.querySelector(
   "#market-details"
 ).textContent =
   `Confidence: ${summary.averageConfidence ?? 0}% | Ready Trades: ${summary.readyTrades ?? 0}`;
-const bestOpportunity =
+
+        const bestOpportunity =
+  data.bestOpportunity || null;
+
+document.querySelector(
+  "#best-opportunity-symbol"
+).textContent =
+  bestOpportunity?.symbol || "No Opportunity";
+
+document.querySelector(
+  "#best-opportunity-details"
+).textContent =
+  bestOpportunity
+    ? `Score: ${bestOpportunity.opportunityScore} | Grade: ${bestOpportunity.opportunityGrade} | ${bestOpportunity.direction}`
+    : "No opportunity";
+        
+        const bestOpportunity =
   summary.bestOpportunity || null;
 
 document.querySelector(
