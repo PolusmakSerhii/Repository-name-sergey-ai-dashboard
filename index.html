@@ -396,12 +396,18 @@ document.querySelector(
         const scannerElement =
           document.querySelector("#scanner-table");
 
-      scannerElement.innerHTML =
-  `
-        <p class="card-text">
-         Найдено монет: ${scannerResults.length}
-       </p>
-     `;
+     scannerElement.innerHTML =
+      scannerResults
+       .map(
+         (coin) => `
+          <p class="card-text">
+           <strong>${coin.rank}. ${coin.symbol}</strong>
+           | Score: ${coin.opportunityScore ?? 0}
+           | ${coin.direction || "Neutral"}
+         </p>
+      `
+    )
+    .join("");
         
         statusElement.innerHTML = `
           <span class="dot"></span>
