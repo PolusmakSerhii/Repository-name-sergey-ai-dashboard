@@ -339,7 +339,10 @@
         
  const summary =
    data.marketSummary || {};
-
+        
+const scannerResults =
+  data.results || [];
+        
 document.querySelector(
   "#market-bias"
 ).textContent =
@@ -390,7 +393,16 @@ document.querySelector(
             `API request failed: ${response.status}`
           );
         }
+        const scannerElement =
+          document.querySelector("#scanner-table");
 
+      scannerElement.innerHTML =
+  `
+        <p class="card-text">
+         Найдено монет: ${scannerResults.length}
+       </p>
+     `;
+        
         statusElement.innerHTML = `
           <span class="dot"></span>
           API Connected
