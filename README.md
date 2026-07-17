@@ -1,2 +1,2 @@
-# Repository-name-sergey-ai-dashboard
+# Sergey-ai-dashboard
 Professional dashboard for Sergey AI Trader PRO
