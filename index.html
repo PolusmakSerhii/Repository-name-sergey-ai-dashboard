@@ -427,7 +427,94 @@ placeholder="Search symbol..."
       "https://sergey-ai-trader-api.vercel.app/api/market?mode=scanner&page=1&limit=10";
     
     let scannerResults = [];
-    
+
+    function renderScanner(results) {
+      const searchValue =
+    searchInput.value.trim().toUpperCase();
+
+const filteredResults =
+    results.filter((coin) =>
+        coin.symbol.includes(searchValue)
+    );      
+  const scannerElement =
+    document.querySelector("#scanner-table");
+
+  scannerElement.innerHTML = `
+    <table class="scanner-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Symbol</th>
+          <th>Score</th>
+          <th>Grade</th>
+          <th>Confidence</th>
+          <th>Direction</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        ${
+          filteredResults
+            .map(
+              (coin) => `
+                <tr>
+                  <td>${coin.rank}</td>
+                  <td>${coin.symbol}</td>
+                  <td>${coin.opportunityScore ?? 0}</td>
+
+                  <td>
+                    <span class="grade grade-${(coin.opportunityGrade || "D")
+                      .toLowerCase()
+                      .replace("+", "plus")}">
+                      ${coin.opportunityGrade || "D"}
+                    </span>
+                  </td>
+
+                  <td>${coin.confidence ?? 0}%</td>
+
+                  <td>
+                    <span class="${
+                      coin.direction === "Long"
+                        ? "long"
+                        : coin.direction === "Short"
+                          ? "short"
+                          : "neutral"
+                    }">
+                      ${coin.direction || "Neutral"}
+                    </span>
+                  </td>
+
+                  <td>
+                    <span class="${
+                      coin.opportunityScore >= 90
+                        ? "buy"
+                        : coin.opportunityScore >= 70
+                          ? "watch"
+                          : coin.opportunityScore >= 40
+                            ? "risky"
+                            : "avoid"
+                    }">
+                      ${
+                        coin.opportunityScore >= 90
+                          ? "Strong Buy"
+                          : coin.opportunityScore >= 70
+                            ? "Buy"
+                            : coin.opportunityScore >= 40
+                              ? "Watch"
+                              : "Avoid"
+                      }
+                    </span>
+                  </td>
+                </tr>
+              `
+            )
+            .join("")
+        }
+      </tbody>
+    </table>
+  `;
+}    
     async function loadScanner() {
       const statusElement =
         document.querySelector(".status");
@@ -508,89 +595,7 @@ document.querySelector(
             `API request failed: ${response.status}`
           );
         }
-        const scannerElement =
-          document.querySelector("#scanner-table");
-const searchValue =
-  searchInput.value.trim().toUpperCase();
-
-const filteredResults =
-  scannerResults.filter((coin) =>
-    coin.symbol.includes(searchValue)
-  );
-        
-        scannerElement.innerHTML = `
-        <table class="scanner-table">
-         <thead>
-          <tr>
-     <th>#</th>
-<th>Symbol</th>
-<th>Score</th>
-<th>Grade</th>
-<th>Confidence</th>
-<th>Direction</th>
-<th>Action</th>
-</tr>
-</thead>
-
-  <tbody>
-    ${
-     filteredResults
-       .map(
-    (coin) => `
-<tr>
-  <td>${coin.rank}</td>
-  <td>${coin.symbol}</td>
-  <td>${coin.opportunityScore ?? 0}</td>
-  <td>
-  <span class="grade grade-${(coin.opportunityGrade || "D")
-    .toLowerCase()
-    .replace("+", "plus")}">
-    ${coin.opportunityGrade || "D"}
-  </span>
-</td>
-
-  <td>${coin.confidence ?? 0}%</td>  
-  <td>
-  <span class="${
-    coin.direction === "Long"
-      ? "long"
-      : coin.direction === "Short"
-      ? "short"
-      : "neutral"
-  }">
-    ${coin.direction || "Neutral"}
- </span>
-</td>
-
-<td>
-    <span class="${
-        coin.opportunityScore >= 90
-            ? "buy"
-            : coin.opportunityScore >= 70
-            ? "watch"
-            : coin.opportunityScore >= 40
-            ? "risky"
-            : "avoid"
-    }">
-        ${
-            coin.opportunityScore >= 90
-                ? "Strong Buy"
-                : coin.opportunityScore >= 70
-                ? "Buy"
-                : coin.opportunityScore >= 40
-                ? "Watch"
-                : "Avoid"
-              }
-           </span>
-        </td>
-
-        </tr>`
-       )
-          .join("")
-        }
-    </tbody>
-  </table>
-`;
+        renderScanner(scannerResults);
         
         statusElement.innerHTML = `
           <span class="dot"></span>
