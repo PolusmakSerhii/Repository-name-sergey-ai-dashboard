@@ -186,6 +186,20 @@
         grid-template-columns: 1fr;
       }
     }
+.long {
+  color: #3ddc84;
+  font-weight: 700;
+}
+
+.short {
+  color: #ff5d73;
+  font-weight: 700;
+}
+
+.neutral {
+  color: #9aa9bb;
+  font-weight: 700;
+}    
   </style>
 </head>
 
@@ -432,7 +446,17 @@ document.querySelector(
   <td>${coin.rank}</td>
   <td>${coin.symbol}</td>
   <td>${coin.opportunityScore ?? 0}</td>
-  <td>${coin.direction || "Neutral"}</td>
+ <td>
+  <span class="${
+    coin.direction === "Long"
+      ? "long"
+      : coin.direction === "Short"
+      ? "short"
+      : "neutral"
+  }">
+    ${coin.direction || "Neutral"}
+  </span>
+</td>
 </tr>
 `
         )
