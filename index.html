@@ -244,6 +244,56 @@
         </p>
       </article>
     </section>
-  </main>
+  </main
+      <script>
+    const API_URL =
+      "https://sergey-ai-trader-api.vercel.app/api/market?mode=scanner&page=1&limit=10";
+
+    async function loadScanner() {
+      const statusElement =
+        document.querySelector(".status");
+
+      try {
+        statusElement.innerHTML = `
+          <span class="dot"></span>
+          Connecting to API...
+        `;
+
+        const response =
+          await fetch(API_URL);
+
+        const data =
+          await response.json();
+
+        console.log(
+          "Scanner API response:",
+          data
+        );
+
+        if (!response.ok) {
+          throw new Error(
+            data?.error ||
+            `API request failed: ${response.status}`
+          );
+        }
+
+        statusElement.innerHTML = `
+          <span class="dot"></span>
+          API Connected
+        `;
+      } catch (error) {
+        console.error(
+          "Scanner API error:",
+          error
+        );
+
+        statusElement.innerHTML = `
+          ❌ API Connection Error
+        `;
+      }
+    }
+
+    loadScanner();
+  </script>
 </body>
 </html>
