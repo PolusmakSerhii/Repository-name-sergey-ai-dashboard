@@ -430,16 +430,27 @@ placeholder="Search symbol..."
 
     
     const searchInput =
-    document.querySelector("#search-input");
+      document.querySelector("#search-input");
+    
+    const directionFilter =
+      document.querySelector("#direction-filter");
     
     function renderScanner(results) {
       const searchValue =
     searchInput.value.trim().toUpperCase();
+   
+      const filteredResults =
+  results.filter((coin) => {
+    const searchMatch =
+      coin.symbol.includes(searchValue);
 
-const filteredResults =
-    results.filter((coin) =>
-        coin.symbol.includes(searchValue)
-    );      
+    const directionMatch =
+      directionFilter.value === "All" ||
+      coin.direction === directionFilter.value;
+
+    return searchMatch && directionMatch;
+  });
+      
   const scannerElement =
     document.querySelector("#scanner-table");
 
@@ -617,6 +628,10 @@ document.querySelector(
     }
      searchInput.addEventListener(
   "input",
+  () => renderScanner(scannerResults)
+);
+    directionFilter.addEventListener(
+  "change",
   () => renderScanner(scannerResults)
 );
     
