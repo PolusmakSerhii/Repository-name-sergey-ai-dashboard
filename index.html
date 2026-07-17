@@ -199,7 +199,34 @@
 .neutral {
   color: #9aa9bb;
   font-weight: 700;
-}    
+}  
+  .grade {
+  font-weight: 800;
+}
+
+.grade-aplus,
+.grade-a {
+  color: #4fe3b1;
+}
+
+.grade-bplus,
+.grade-b {
+  color: #33a8ff;
+}
+
+.grade-cplus,
+.grade-c {
+  color: #ffd166;
+}
+
+.grade-d {
+  color: #ff9f43;
+}
+
+.grade-f {
+  color: #ff5d73;
+}
+    
   </style>
 </head>
 
@@ -449,7 +476,14 @@ document.querySelector(
   <td>${coin.rank}</td>
   <td>${coin.symbol}</td>
   <td>${coin.opportunityScore ?? 0}</td>
-  <td>${coin.opportunityGrade || "D"}</td>
+  <td>
+  <span class="grade grade-${(coin.opportunityGrade || "D")
+    .toLowerCase()
+    .replace("+", "plus")}">
+    ${coin.opportunityGrade || "D"}
+  </span>
+</td>
+
   <td>${coin.confidence ?? 0}%</td>  
   <td>
   <span class="${
