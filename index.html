@@ -282,16 +282,18 @@
           <span class="dot"></span>
           API Connected
         `;
-      } catch (error) {
-        console.error(
-          "Scanner API error:",
-          error
-        );
+      } 
+     catch (error) {
 
-        statusElement.innerHTML = `
-          ❌ API Connection Error
-        `;
-      }
+      console.error(error);
+
+      alert(error.message);
+
+      statusElement.innerHTML = `
+       ❌ API Connection Error
+     `;
+
+  }
     }
 
     loadScanner();
