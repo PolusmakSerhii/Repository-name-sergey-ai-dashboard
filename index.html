@@ -438,7 +438,7 @@ placeholder="Search symbol..."
       "https://sergey-ai-trader-api.vercel.app/api/market?mode=scanner&page=1&limit=10";
     
     let scannerResults = [];
-
+    let scoreSortDirection = "desc";
     
     const searchInput =
       document.querySelector("#search-input");
@@ -489,8 +489,19 @@ const actionMatch =
     actionMatch
 );
         });
-      
-    const scannerCount =
+      const sortedResults =
+        [...filteredResults].sort((a, b) => {
+     const scoreA =
+       a.opportunityScore ?? 0;
+
+     const scoreB =
+       b.opportunityScore ?? 0;
+
+     return scoreSortDirection === "desc"
+      ? scoreB - scoreA
+      : scoreA - scoreB;
+  });
+      const scannerCount =
        document.querySelector("#scanner-count");
 
     scannerCount.textContent =
@@ -505,7 +516,9 @@ const actionMatch =
         <tr>
           <th>#</th>
           <th>Symbol</th>
-          <th>Score</th>
+          <th id="score-sort" style="cursor:pointer;">
+              Score ${scoreSortDirection === "desc" ? "↓" : "↑"}
+          </th>
           <th>Grade</th>
           <th>Confidence</th>
           <th>Direction</th>
@@ -515,8 +528,8 @@ const actionMatch =
 
       <tbody>
         ${
-          filteredResults
-            .map(
+          sortedResults
+          .map(
               (coin) => `
                 <tr>
                   <td>${coin.rank}</td>
