@@ -448,6 +448,9 @@ placeholder="Search symbol..."
 
     const gradeFilter =
       document.querySelector("#grade-filter");
+
+    const actionFilter =
+      document.querySelector("#action-filter"); 
     
     function renderScanner(results) {
       const searchValue =
@@ -466,10 +469,26 @@ const gradeMatch =
     gradeFilter.value === "all" ||
     coin.opportunityGrade === gradeFilter.value;
 
-return searchMatch &&
-       directionMatch &&
-       gradeMatch;
-    });
+          const action =
+              coin.opportunityScore >= 90
+                ? "Strong Buy"
+                : coin.opportunityScore >= 70
+                ? "Buy"
+                : coin.opportunityScore >= 40
+                ? "Watch"
+                : "Avoid";
+
+const actionMatch =
+    actionFilter.value === "all" ||
+    action === actionFilter.value;
+          
+   return (
+    searchMatch &&
+    directionMatch &&
+    gradeMatch &&
+    actionMatch
+);
+        });
       
     const scannerCount =
        document.querySelector("#scanner-count");
@@ -665,6 +684,10 @@ document.querySelector(
      "change",
     () => renderScanner(scannerResults)
  );
+    actionFilter.addEventListener(
+    "change",
+    () => renderScanner(scannerResults)
+);
     
     loadScanner();
     
