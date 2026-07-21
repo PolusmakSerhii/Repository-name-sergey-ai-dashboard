@@ -826,7 +826,25 @@ const grade =
 
 const opportunityScore =
   scannerCoin.opportunityScore ?? 0;
-    
+       
+const action =
+  opportunityScore >= 90
+    ? "Strong Buy"
+    : opportunityScore >= 70
+      ? "Buy"
+      : opportunityScore >= 40
+        ? "Watch"
+        : "Avoid";
+       
+const action =
+  opportunityScore >= 90
+    ? "Strong Buy"
+    : opportunityScore >= 70
+      ? "Buy"
+      : opportunityScore >= 40
+        ? "Watch"
+        : "Avoid";
+       
   coinDetails.innerHTML = `
   <h2>${symbol}</h2>
 
@@ -879,8 +897,18 @@ const opportunityScore =
 
       <div class="coin-detail-value">
         ${grade}
+        
       </div>
     </div>
+   <div class="coin-detail-card">
+  <div class="coin-detail-label">
+    Action
+  </div>
+
+  <div class="coin-detail-value">
+    ${action}
+  </div>
+</div>
 
   </div>
 
