@@ -740,8 +740,7 @@ document.querySelector(
 
   }
     }
-    
-    function openCoinModal(symbol) {
+    async function openCoinModal(symbol) {
   const coinModal =
     document.querySelector("#coin-modal");
 
@@ -754,16 +753,54 @@ document.querySelector(
   `;
 
   coinModal.classList.remove("hidden");
-}
-    
-     searchInput.addEventListener(
-  "input",
-  () => renderScanner(scannerResults)
-);
-    directionFilter.addEventListener(
-  "change",
-  () => renderScanner(scannerResults)
-);
+
+  try {
+    const response = await fetch(
+      `https://sergey-ai-trader-api.vercel.app/api/market?symbol=${symbol}`
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(
+        data?.error ||
+        `API request failed: ${response.status}`
+      );
+    }
+
+    coinDetails.innerHTML = `
+      <h2>${symbol}</h2>
+
+      <p>
+        Price:
+        ${data.price ?? "—"}
+      </p>
+
+      <p>
+        Probability:
+        ${data.probabilityScore ?? "—"}%
+      </p>
+
+      <p>
+        Direction:
+        ${data.direction ?? "Neutral"}
+      </p>
+
+      <p>
+        Grade:
+        ${data.opportunityGrade ?? "—"}
+      </p>
+    `;
+  } catch (error) {
+    console.error(error);
+
+    coinDetails.innerHTML = `
+      <h2>${symbol}</h2>
+      <p>Failed to load coin analysis.</p>
+      <p>${error.message}</p>
+    `;
+  }
+}   
 
     gradeFilter.addEventListener(
      "change",
