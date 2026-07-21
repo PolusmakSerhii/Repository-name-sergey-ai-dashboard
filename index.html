@@ -760,6 +760,17 @@ document.querySelector(
     );
 
     const data = await response.json();
+
+    coinDetails.innerHTML = `
+  <h2>${symbol}</h2>
+  <pre style="
+    white-space: pre-wrap;
+    font-size: 14px;
+    line-height: 1.5;
+  ">${JSON.stringify(data, null, 2)}</pre>
+`;
+
+return;
     
     console.log("Coin analysis response:", data);    
     
