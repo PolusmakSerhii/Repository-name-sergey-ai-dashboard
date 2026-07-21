@@ -827,45 +827,77 @@ const grade =
 const opportunityScore =
   scannerCoin.opportunityScore ?? 0;
     
-    coinDetails.innerHTML = `
+  coinDetails.innerHTML = `
   <h2>${symbol}</h2>
 
-  <p>
-    Price:
-    ${data.price ?? "—"}
-  </p>
+  <div class="coin-details-grid">
 
-  <p>
-    Opportunity Score:
-    ${opportunityScore}
-  </p>
+    <div class="coin-detail-card">
+      <div class="coin-detail-label">
+        Price
+      </div>
 
-  <p>
-    Probability:
-    ${probability}%
-  </p>
+      <div class="coin-detail-value">
+        ${data.price ?? "—"}
+      </div>
+    </div>
 
-  <p>
-    Direction:
-    ${direction}
-  </p>
+    <div class="coin-detail-card">
+      <div class="coin-detail-label">
+        Opportunity Score
+      </div>
 
-  <p>
-    Grade:
-    ${grade}
-  </p>
+      <div class="coin-detail-value">
+        ${opportunityScore}
+      </div>
+    </div>
+
+    <div class="coin-detail-card">
+      <div class="coin-detail-label">
+        Probability
+      </div>
+
+      <div class="coin-detail-value">
+        ${probability}%
+      </div>
+    </div>
+
+    <div class="coin-detail-card">
+      <div class="coin-detail-label">
+        Direction
+      </div>
+
+      <div class="coin-detail-value">
+        ${direction}
+      </div>
+    </div>
+
+    <div class="coin-detail-card">
+      <div class="coin-detail-label">
+        Grade
+      </div>
+
+      <div class="coin-detail-value">
+        ${grade}
+      </div>
+    </div>
+
+  </div>
 
   ${
     data.coinGlass?.available === false
       ? `
-        <p style="color:#ffd166;">
+        <p style="
+          margin-top: 20px;
+          color: #ffd166;
+        ">
           CoinGlass temporarily unavailable: rate limit
         </p>
       `
       : ""
   }
 `;
-    
+       
   } catch (error) {
     console.error(error);
 
