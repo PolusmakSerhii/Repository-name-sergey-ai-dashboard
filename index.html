@@ -476,6 +476,16 @@ placeholder="Search symbol..."
     
   </main> 
   
+  <div id="coin-modal" class="modal hidden">
+  <div class="modal-content">
+    <button id="close-modal">✕</button>
+
+    <div id="coin-details">
+      Loading...
+    </div>
+  </div>
+</div>
+  
   <script>
     const API_URL =
       "https://sergey-ai-trader-api.vercel.app/api/market?mode=scanner&page=1&limit=10";
@@ -800,16 +810,6 @@ document.querySelector(
     loadScanner();
     
   </script>
-
-<div id="coin-modal" class="modal hidden">
-  <div class="modal-content">
-    <button id="close-modal">✕</button>
-
-    <div id="coin-details">
-      Loading...
-    </div>
-  </div>
-</div> 
   
 </body>
 </html>
