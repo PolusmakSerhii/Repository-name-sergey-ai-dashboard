@@ -877,6 +877,8 @@ const grade =
 const opportunityScore =
   scannerCoin.opportunityScore ?? 0;
        
+const tradePlan = data.tradePlan || {};  
+       
 const action =
   opportunityScore >= 90
     ? "Strong Buy"
@@ -975,32 +977,44 @@ Trade Plan
 
 <div class="coin-detail-card">
 <div class="coin-detail-label">Entry</div>
-<div class="coin-detail-value">—</div>
+<div class="coin-detail-value">
+    ${tradePlan.entry ?? "—"}
+</div>
 </div>
 
 <div class="coin-detail-card">
 <div class="coin-detail-label">Stop Loss</div>
-<div class="coin-detail-value">—</div>
+<div class="coin-detail-value">
+    ${tradePlan.stopLoss ?? "—"}
+</div>
 </div>
 
 <div class="coin-detail-card">
 <div class="coin-detail-label">TP1</div>
-<div class="coin-detail-value">—</div>
+<div class="coin-detail-value">
+    ${tradePlan.takeProfit1 ?? "—"}
+</div>
 </div>
 
 <div class="coin-detail-card">
 <div class="coin-detail-label">TP2</div>
-<div class="coin-detail-value">—</div>
+<div class="coin-detail-value">
+    ${tradePlan.takeProfit2 ?? "—"}
+</div>
 </div>
 
 <div class="coin-detail-card">
 <div class="coin-detail-label">TP3</div>
-<div class="coin-detail-value">—</div>
+<div class="coin-detail-value">
+    ${tradePlan.takeProfit3 ?? "—"}
+</div>
 </div>
 
 <div class="coin-detail-card">
 <div class="coin-detail-label">Risk / Reward</div>
-<div class="coin-detail-value">—</div>
+<div class="coin-detail-value">
+    ${tradePlan.riskReward ?? "—"}
+</div>
 </div>
 
 <div class="coin-detail-card">
