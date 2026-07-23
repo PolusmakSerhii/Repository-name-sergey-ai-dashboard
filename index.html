@@ -894,6 +894,12 @@ const tradePlan =
 
 const hasValidTrade =
   tradePlan.validTrade === true;
+
+const recommendation =
+  data.technical?.recommendation || {};
+
+const positionSize =
+  recommendation.positionSize || {};
        
 const action =
   opportunityScore >= 90
@@ -1044,9 +1050,13 @@ Current market conditions do not meet the minimum requirements for a confirmed t
 
 <div class="coin-detail-card">
 <div class="coin-detail-label">Position Size</div>
-<div class="coin-detail-value">—</div>
+<div class="coin-detail-value">
+  ${
+    positionSize.riskPercent > 0
+      ? `${positionSize.riskPercent}% / ${positionSize.leverage || "No leverage"}`
+      : "—"
+  }
 </div>
-
 </div>
 
 ` : ""}
