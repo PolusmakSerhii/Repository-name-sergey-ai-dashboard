@@ -928,16 +928,19 @@ const rejectionReason =
   tradePlan.rejectionReason ||
   "Current market conditions do not meet the minimum requirements for a confirmed trade.";
 
+const probabilityData =
+  data.technical?.probability || {}; 
+       
 const tradeReasons =
   Array.isArray(tradePlan.reasons) &&
   tradePlan.reasons.length > 0
     ? tradePlan.reasons
-    : Array.isArray(probability.reasons)
-      ? probability.reasons
+    : Array.isArray(probabilityData.reasons)
+      ? probabilityData.reasons
       : [];
        
 console.log("Trade Plan Reasons:", tradePlan.reasons);
-console.log("Probability Reasons:", probability.reasons);
+console.log("Probability Reasons:", probabilityData.reasons);
 console.log("Final Trade Reasons:", tradeReasons);
        
 const recommendation =
