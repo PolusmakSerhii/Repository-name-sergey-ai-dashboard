@@ -965,6 +965,33 @@ const aiSummary =
   marketSummary.description ||
   "";
        
+const tradeStatistics = {
+  confidence:
+    probabilityData.confidence ??
+    tradePlan.confidence ??
+    null,
+
+  conviction:
+    probabilityData.aiAssessment?.conviction ??
+    null,
+
+  signalStrength:
+    decisionEngine.summary?.signalStrength ??
+    null,
+
+  setupScore:
+    tradePlan.setupScore ??
+    null,
+
+  scoreDifference:
+    probabilityData.aiAssessment?.probabilities
+      ? Math.abs(
+          (probabilityData.aiAssessment.probabilities.bullish ?? 0) -
+          (probabilityData.aiAssessment.probabilities.bearish ?? 0)
+        )
+      : null
+};
+       
 const recommendation =
   data.technical?.recommendation || {};
 
@@ -1097,6 +1124,41 @@ ${recommendation.status ? `
     <div class="trade-reason-item">
         ⚠️ Risk: ${recommendation.risk ?? "—"}
     </div>
+</div>
+` : ""}
+
+${tradeStatistics.confidence !== null ? `
+<div class="trade-reasons" style="margin-bottom:24px;">
+
+    <div class="trade-reasons-title">
+        📊 Trade Statistics
+    </div>
+
+    <div class="trade-reason-item">
+        📈 AI Confidence:
+        ${tradeStatistics.confidence}/100
+    </div>
+
+    <div class="trade-reason-item">
+        🎯 Conviction:
+        ${tradeStatistics.conviction ?? "—"}/100
+    </div>
+
+    <div class="trade-reason-item">
+        ⚡ Signal Strength:
+        ${tradeStatistics.signalStrength ?? "—"}/100
+    </div>
+
+    <div class="trade-reason-item">
+        ⭐ Setup Score:
+        ${tradeStatistics.setupScore ?? "—"}/100
+    </div>
+
+    <div class="trade-reason-item">
+        ⚖️ Score Difference:
+        ${tradeStatistics.scoreDifference ?? "—"}
+    </div>
+
 </div>
 ` : ""}
 
