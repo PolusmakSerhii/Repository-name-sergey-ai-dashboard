@@ -945,7 +945,10 @@ console.log("Final Trade Reasons:", tradeReasons);
 
 const smartMoneyData =
   data.technical?.smartMoney || {};
-
+       
+const marketEnvironment =
+    data.technical?.marketEnvironment || {};   
+       
 const smartMoneyReasons =
   Array.isArray(smartMoneyData.reasons)
     ? smartMoneyData.reasons
@@ -1089,6 +1092,52 @@ ${smartMoneyReasons.length > 0 ? `
             </div>
         `)
         .join("")}
+</div>
+` : ""}
+
+${Object.keys(marketEnvironment).length > 0 ? `
+<div class="trade-reasons" style="margin-top:20px;">
+    <div class="trade-reasons-title">
+        🌍 Market Environment
+    </div>
+
+    <div class="trade-reason-item">
+        Score: ${marketEnvironment.score ?? "—"} / 100
+    </div>
+
+    <div class="trade-reason-item">
+        Condition: ${marketEnvironment.condition ?? "—"}
+    </div>
+
+    <div class="trade-reason-item">
+        Tradable: ${marketEnvironment.tradable === true ? "YES" : "NO"}
+    </div>
+
+    ${
+      Array.isArray(marketEnvironment.reasons)
+        ? marketEnvironment.reasons
+            .slice(0, 4)
+            .map(reason => `
+                <div class="trade-reason-item">
+                    ${reason}
+                </div>
+            `)
+            .join("")
+        : ""
+    }
+
+    ${
+      Array.isArray(marketEnvironment.warnings)
+        ? marketEnvironment.warnings
+            .slice(0, 3)
+            .map(warning => `
+                <div class="trade-reason-item">
+                    ⚠ ${warning}
+                </div>
+            `)
+            .join("")
+        : ""
+    }
 </div>
 ` : ""}
 
