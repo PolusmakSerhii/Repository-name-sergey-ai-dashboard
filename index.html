@@ -1168,10 +1168,21 @@ ${tradeStatistics.confidence !== null ? `
         📊 Trade Statistics
     </div>
 
-    <div class="trade-reason-item">
-        📈 AI Confidence:
-        ${tradeStatistics.confidence}/100
+   <div class="trade-stat-row">
+
+    <div class="trade-stat-header">
+        <span>📈 AI Confidence</span>
+        <span>${tradeStatistics.confidence}/100</span>
     </div>
+
+    <div class="trade-stat-track">
+        <div
+            class="trade-stat-fill"
+            style="width:${tradeStatistics.confidence}%"
+        ></div>
+    </div>
+
+</div>
 
     <div class="trade-reason-item">
         🎯 Conviction:
