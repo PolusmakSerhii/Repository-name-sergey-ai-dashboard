@@ -1071,6 +1071,34 @@ ${aiSummary ? `
   </div>
 </div>
 ` : ""}
+${recommendation.status ? `
+<div class="trade-reasons" style="margin-bottom:24px;">
+    <div class="trade-reasons-title">
+        🎯 Recommendation
+    </div>
+
+    <div class="trade-reason-item">
+        ✅ Status: ${recommendation.status}
+    </div>
+
+    <div class="trade-reason-item">
+        ⏳ Entry Timing: ${recommendation.entryTiming?.status ?? "—"}
+    </div>
+
+    <div class="trade-reason-item">
+        ⭐ Priority: ${recommendation.entryTiming?.priority ?? "—"}
+    </div>
+
+    <div class="trade-reason-item">
+        📋 Instruction:
+        ${recommendation.entryTiming?.instruction ?? "—"}
+    </div>
+
+    <div class="trade-reason-item">
+        ⚠️ Risk: ${recommendation.risk ?? "—"}
+    </div>
+</div>
+` : ""}
 
 <h3
     style="
